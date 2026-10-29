@@ -1,0 +1,18 @@
+{
+  "id": "./",
+  "name": "BK스튜디오",
+  "short_name": "BK스튜디오",
+  "description": "대본 · 내 목소리 · AI 영상 장면으로 정보 · 뉴스 · 유머 쇼츠를 만드는 영상 제작실",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f3f5fb",
+  "theme_color": "#1e3a8a",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
