@@ -1,5 +1,5 @@
 /*!
- * admin.js — BK스튜디오 관리자 메뉴 (만든 사람용): 관리용 주소 · 지금 버전 백업 · 숨기기
+ * admin.js — BK영상 관리자 메뉴 (만든 사람용): 관리용 주소 · 지금 버전 백업 · 숨기기
  * 켜는 방법: 주소 뒤에 ?bkadmin  /  맨 아래 'BK Agent · 비케이'를 3초 안에 7번 누르기
  * BK톡톡과 같은 주소(bangkeukryul.github.io)를 쓰므로, 관리자 켜짐 표시('bkAdmin')를 함께 써요.
  */
@@ -62,7 +62,7 @@
   }
 
   // ── 관리용 주소 복사 ──
-  const ADMIN_TXT = `🛠 BK스튜디오 관리용 주소\n\n① 파일 올리기 (업데이트)\n${UPLOAD}\n\n② 저장소 (파일 목록·변경 기록)\n${REPO}\n\n`
+  const ADMIN_TXT = `🛠 BK영상 관리용 주소\n\n① 파일 올리기 (업데이트)\n${UPLOAD}\n\n② 저장소 (파일 목록·변경 기록)\n${REPO}\n\n`
     + `③ 관리자 메뉴 켜기 (내 휴대폰 전용, 남에게 알려 주지 않기)\n${APP}?bkadmin\n\n④ 앱 주소 (다른 분께 공유용)\n${APP}\n\n`
     + '※ 업데이트 순서: 앱 관리자 메뉴에서 백업 → ①에서 새 파일 올리기 → Commit changes → 1~2분 뒤 앱 두 번 열기';
   async function acopy(text, ok) {
@@ -125,11 +125,11 @@
       }
     } catch (e) { msg('⚠️ 백업 실패: ' + e.message + ' — 인터넷 연결을 확인하고 다시 눌러 주세요.', '#dc2626'); return; }
     const names = out.map(f => f.name);
-    const note = `BK스튜디오 백업\n백업한 때: ${d.toLocaleString('ko-KR')}\n버전: ${$('adminVer').textContent}\n\n[되돌리는 방법]\n1. 이 zip을 압축 풀기\n`
+    const note = `BK영상 백업\n백업한 때: ${d.toLocaleString('ko-KR')}\n버전: ${$('adminVer').textContent}\n\n[되돌리는 방법]\n1. 이 zip을 압축 풀기\n`
       + `2. ${UPLOAD.replace('https://', '')} 접속\n3. choose your files → 아래 파일 ${names.length}개 모두 선택 → Commit changes\n4. 1~2분 뒤 앱을 닫았다가 두 번 열기\n\n`
       + `파일: ${names.join(', ')}\n(이 안내 파일은 올리지 않아도 돼요)\n`;
     out.push({ name: '백업안내.txt', data: new TextEncoder().encode(note) });
-    const blob = makeZip(out), name = `BK스튜디오_백업_${ds}.zip`, u = URL.createObjectURL(blob), a = document.createElement('a');
+    const blob = makeZip(out), name = `BK영상_백업_${ds}.zip`, u = URL.createObjectURL(blob), a = document.createElement('a');
     a.href = u; a.download = name; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(u), 5000);
     msg(`✅ 백업 완료! 내 파일 → 다운로드에 “${name}” (${Math.round(blob.size / 1024)}KB, 파일 ${names.length}개)로 저장했어요.`, '#16a34a');

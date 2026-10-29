@@ -1,5 +1,5 @@
 /*!
- * studio.js — BK스튜디오 화면 동작 (장면 · 꾸미기 · 미리보기 · 영상 만들기)
+ * studio.js — BK영상 화면 동작 (장면 · 꾸미기 · 미리보기 · 영상 만들기)
  * 영상 엔진(engine.js · mp4mux.js · music.js)은 BK쇼츠와 같은 것을 씀. 대본 · 목소리 · AI 장면은 talk.js
  */
 (function () {
@@ -323,7 +323,7 @@
   function stamp() { const d = new Date(), p = n => String(n).padStart(2, '0'); return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}${p(d.getSeconds())}`; }
   function showResult(res, W, H, fps, total) {
     $('#progress').hidden = true; if (X.url) URL.revokeObjectURL(X.url);
-    const name = `BK스튜디오_${stamp()}.mp4`;
+    const name = `BK영상_${stamp()}.mp4`;
     X.file = new File([res.blob], name, { type: 'video/mp4' }); X.url = URL.createObjectURL(res.blob);
     $('#resultVideo').src = X.url; const a = $('#downloadLink'); a.href = X.url; a.download = name;
     let info = `${W}x${H} · ${fps}fps · ${total.toFixed(1)}초 · ${(res.blob.size / 1048576).toFixed(1)}MB`;

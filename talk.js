@@ -1,5 +1,5 @@
 /*!
- * talk.js — BK스튜디오 대본 · 목소리 · AI 장면
+ * talk.js — BK영상 대본 · 목소리 · AI 장면
  * 자료 → AI 대본(요청서) → 내 목소리(PC BK보이스 · 음성 파일 · 직접 녹음) → 문장마다 자막 · 장면이 목소리에 맞춰 넘어가는 쇼츠
  * 모든 처리는 이 휴대폰 안에서만 (PC 목소리를 쓸 때만 내 PC와 직접 연결)
  */
@@ -440,7 +440,7 @@ ${t.rules.map(r => '- ' + r).join('\n')}
   }
   function dl(blob, name) { const u = URL.createObjectURL(blob), a = document.createElement('a'); a.href = u; a.download = name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 8000); }
   const stamp = () => { const d = new Date(), p = n => String(n).padStart(2, '0'); return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}_${p(d.getHours())}${p(d.getMinutes())}`; };
-  $('tkNarrSave').addEventListener('click', () => { const N = A.S.narr; if (N) dl(toWav(N.buffer, { v: 1, segs: N.segs }), `BK스튜디오_목소리_${stamp()}.wav`); });
+  $('tkNarrSave').addEventListener('click', () => { const N = A.S.narr; if (N) dl(toWav(N.buffer, { v: 1, segs: N.segs }), `BK영상_목소리_${stamp()}.wav`); });
 
   // ═════════ ⑤ 화면 ═════════
   $('tkBg').addEventListener('click', async () => {
@@ -641,7 +641,7 @@ ${g.map((x, i) => `장면 ${i + 1} (약 ${x.dur.toFixed(0)}초) — 대본: ${x.
     renderVcards(); A.scheduleRebuild(0);
     toast('🗣 아바타 영상을 처음부터 끝까지 넣었어요 · 다른 장면을 섞으려면 위 장면 카드에서 바꿔요', 4500);
   });
-  $('tkVsave').addEventListener('click', () => { const N = A.S.narr; if (!N) { toast('먼저 🎙 목소리를 넣어 주세요'); return; } dl(toWav(N.buffer), `BK스튜디오_목소리_${stamp()}.wav`); });
+  $('tkVsave').addEventListener('click', () => { const N = A.S.narr; if (!N) { toast('먼저 🎙 목소리를 넣어 주세요'); return; } dl(toWav(N.buffer), `BK영상_목소리_${stamp()}.wav`); });
   $('tkVans').value = T.vans || ''; $('tkVans').addEventListener('input', () => { T.vans = $('tkVans').value; save(); });
   ['tkDisp', 'tkRead'].forEach(id => $(id).addEventListener('input', () => { renderVopts(); renderVcards(); }));
 
