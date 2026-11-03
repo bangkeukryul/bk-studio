@@ -208,7 +208,11 @@
       // 정해 둔 영상이 없는 문장: 남은 사진 · 배경을 차례로 → 남은 게 없으면 앞 장면을 이어서 (같은 클립을 다시 틀지 않음)
       let rr = 0; const pick = k => { const i = map[k] != null ? S.photos.findIndex(p => p.id === map[k]) : -1; if (i >= 0) return i; if (pool.length) return pool[rr++ % pool.length]; return scenes.length ? scenes[scenes.length - 1].img : 0; };
       scenes = [];
-      for (let k = 0; k < n; k++) { const img = pick(k), last = scenes[scenes.length - 1]; if (last && last.img === img) last.end = bounds[k + 1]; else scenes.push({ img, start: bounds[k], end: bounds[k + 1], text: '', clipStart: 0 }); }
+      // 📷 사진마다 시작 문장을 골라 두었으면 (pair.js) → 사진이 그 문장이 시작하는 순간에 바뀌어요
+      const SM = S.startMap || {}, ks = S.photos.map(p => SM[p.id]);
+      const useSM = S.startOn && S.photos.length && ks.every(v => v != null && v < n) && ks.every((v, i) => i === 0 || v > ks[i - 1]);
+      if (useSM) S.photos.forEach((p, i) => { const s0 = i === 0 ? 0 : bounds[ks[i]], e0 = i + 1 < ks.length ? bounds[ks[i + 1]] : total; if (e0 > s0) scenes.push({ img: i, start: s0, end: e0, text: '', clipStart: 0 }); });
+      else for (let k = 0; k < n; k++) { const img = pick(k), last = scenes[scenes.length - 1]; if (last && last.img === img) last.end = bounds[k + 1]; else scenes.push({ img, start: bounds[k], end: bounds[k + 1], text: '', clipStart: 0 }); }
       // 클립이 장면보다 조금 짧으면 천천히 늘려 채움 (최대 약 1.6배 느리게 · 더 짧으면 끝 화면에서 멈춤)
       scenes.forEach(sc => { const it = S.photos[sc.img], len = sc.end - sc.start; if (it.kind === 'video' && it.dur + 0.05 < len && it.dur / len >= 0.6) sc.rate = (it.dur - 0.06) / len; });
       subs = segs.filter(g => (g.t || '').trim()).map(g => ({ start: lead + g.s, end: Math.min(total - 0.2, lead + g.e + 0.12), text: g.t, anim: null }));
